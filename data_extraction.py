@@ -1,4 +1,5 @@
 import geopandas as gpd
+import matplotlib.pyplot as plt
 import numpy
 import pandas
 import rasterio
@@ -58,6 +59,8 @@ for i in range(0, len(files), 1):
         for id_band, link in enumerate(file_bands, start=1):
             with rasterio.open(link) as geo_fp_sub:
                 out, _ = rasterio.mask.mask(geo_fp_sub, [bbox_poly_project], crop=True, invert=False)
+                if numpy.all(out == 0):
+                    print("bad:", files[i])
                 dst.write_band(id_band, out[0])
 
 
@@ -65,13 +68,18 @@ for i in range(0, len(files), 1):
 #data chipping
 files = glob.glob('processed/*')
 profile.update(count=len(file_bands)*len(files))
-with rasterio.open('processed_full/stack_bbox_stacked.tif', "w", **profile) as dst:
-    for id_band, link in enumerate(files, start=1):
-        with rasterio.open(link) as geo_fp_sub:
-            subset = geo_fp_sub.read(1)
-            dst.write_band(id_band, subset)
 
+for id_band, link in enumerate(files, start=1):
+    with rasterio.open(link) as geo_fp_sub:
+        subset = geo_fp_sub.read()
+        print(subset.shape)
+        if id_band == 1:
+            out_stacked = subset
+        else:
+            out_stacked = numpy.vstack((out_stacked,subset))
 
+with rasterio.open('processed_full/stack_bbox_stacked_fixed.tif', "w", **profile) as dst:
+            dst.write(out_stacked)
 
 data = data.to_crs(profile.data['crs'])
 
@@ -79,7 +87,7 @@ df_out = pandas.DataFrame()
 for i in range(0, len(data), 1):
     #read first image again and make a mask with annotations
     try:
-        with rasterio.open('processed_full/stack_bbox_stacked.tif') as geo_fp:
+        with rasterio.open('processed_full/stack_bbox_stacked_fixed.tif') as geo_fp:
             out,_ = rasterio.mask.mask(geo_fp, data['geometry'].iloc[i], crop= True, invert=False)
             data_flat = out.reshape(-1)
             df = pandas.DataFrame({"size_0": out.shape[0],
@@ -126,14 +134,20 @@ for i in range(0, len(df_out), 1):
         for iii in range(0, data.shape[2], 1):
             pixel = data[:, ii, iii]
             if numpy.all(pixel == 0) == False:
-                pixel = pixel.reshape(8, int(pixel.shape[0]/8))
-                pixel_out = np.zeros((3, pixel.shape[0] ,pixel.shape[1]))
+                pixel = pixel.reshape(int(pixel.shape[0]/8), 8)
+                pixel_out = np.zeros((3, pixel.shape[0], pixel.shape[1]))
                 pixel_out[0,:,:] = pixel/3
                 pixel_out[1,:,:] = pixel/3
                 pixel_out[2,:,:] = pixel/3
                 norm_image = cv2.normalize(pixel_out, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
                 norm_image = norm_image.astype(np.uint8)
                 PIL_image = Image.fromarray(norm_image.T, 'RGB')
+                show = False
+                if show == True:
+                    plt.imshow(pixel)
+                    size = 256, 256
+                    im = PIL_image.resize(size, Image.ANTIALIAS)
+                    im.show()
                 tensor = transform(PIL_image).unsqueeze(0)  # transform and add batch dimension
                 with torch.no_grad():
                     out = model(tensor)
@@ -150,8 +164,15 @@ for i in range(0, len(df_out), 1):
 df_final_imagenet['data_flat'] = df_final_imagenet['data_flat'].map(lambda x: ','.join(map(str, x)))
 df_final_imagenet.to_csv('data_v1_imagenet.csv')
 
+df = df_final_imagenet
+import math
+import csv
 
-
-
-
+NUMBER_OF_SPLITS = 30
+fileOpens = [open(f"out{i}.csv","w") for i in range(NUMBER_OF_SPLITS)]
+fileWriters = [csv.writer(v, lineterminator='\n') for v in fileOpens]
+for i,row in df.iterrows():
+    fileWriters[math.floor((i/df.shape[0])*NUMBER_OF_SPLITS)].writerow(row.tolist())
+for file in fileOpens:
+    file.close()
 
