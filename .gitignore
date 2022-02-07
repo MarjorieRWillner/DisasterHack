@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+tree_model/image_bands/t_0_2017_10/LC08_L2SP_043033_20171013_20200902_02_T1_SR_B1.TIF
+*.TIF
+*.npy
+tree_model/processed/stack_bbox_0.tif.aux.xml

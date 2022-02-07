@@ -1,4 +1,3 @@
-
 # Wildfire Mitigation: Computer Vision Identification of Hazard Fuels Using Landsat
 Welcome to our submission to the AWS Disaster Response Hackathon.
 
@@ -27,7 +26,5 @@ With further development (image asset download services) this model can be used 
 
 ## Contributors
 codychampion Cody Champion
-
-
 
 
