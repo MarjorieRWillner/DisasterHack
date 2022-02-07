@@ -4,6 +4,13 @@ Welcome to our submission to the AWS Disaster Response Hackathon.
 ## Description
 Without intervention, diseased and dead trees become hazardous fuels that increase the likelihood and severity of wildfire and associated disasters. However, traditional tree assessment methods are time consuming and laborious. To aid Federal, state, and local land managers in quickly identifying and responding to tree disease and mortality, we developed a computer vision model to identify diseased and dead trees from open-source available 16-day 30m Landsat data. 
 
+## Background
+
+The cost associated with conducting tree mortality surveys reduces the frequency and coverage area of surveys creating the potential for forest managers to overlook areas of tree mortality outside of survey regions. Early detection and continuous monitoring of established species such as the Western Pine Beetle are critical to slowing their spread. However, the low frequency and limited coverage area of the National Insect and Disease detection survey reduces the capacity of USDA’s Animal Plant Health Inspection Service to rapidly detect tree mortality caused by outbreaks of invasive species. Due to the scalability of our CV model, Federal, state, and local land managers can rapidly detect and monitor tree mortality over large land areas, leading to faster treatment of affected areas and containment of invasive species.
+
+Our CV model also has the potential to reduce the risk of power outages and forest fire outbreaks due to tree-conductor contact through faster identification and monitoring of tree mortality. On distribution systems, it is common for tree related outages to comprise 20%-50% of all unplanned outages. The vast majority of tree-related outages stem from tree failure. Tree mortality exposes a power line to a high risk of tree incidents over time. By continuously identifying dead trees over a large land area, our model will enable utility foresters, asset managers, arboriculture consultants, and regulators to improve tree risk assessments and line clearance programs through automated detection of tree mortality.
+
+
 ## Forest Damage Identification Model
 ### The Data
 
