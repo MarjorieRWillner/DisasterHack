@@ -1,5 +1,5 @@
 # Wildfire Mitigation: Computer Vision Identification of Hazard Fuels Using Landsat
-Welcome to our submission to the AWS Disaster Response Hackathon.  [![Open In SageMaker Studio Lab](https://studiolab.sagemaker.aws/studiolab.svg)](https://studiolab.sagemaker.aws/import/github/github.com/MarjorieRWillner/DisasterHack/edit/main/tree_model/Data_extraction.ipynb)
+Welcome to our submission to the AWS Disaster Response Hackathon.  [![Open In SageMaker Studio Lab](https://studiolab.sagemaker.aws/studiolab.svg)](https://studiolab.sagemaker.aws/import/github/MarjorieRWillner/DisasterHack/blob/main/tree_model/Data_extraction.ipynb)
 
 
 
