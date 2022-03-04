@@ -26,6 +26,8 @@ We created the ImageNet feature representation for classification using an image
 Finally, we visualized our model output, error and ground truth using matplotlib and wrote the asset as a geotiff.
 
 
+![image](https://user-images.githubusercontent.com/15643577/156848755-5df29fd5-92db-4e72-b318-575395aa627b.png)
+
 ## Set Up
 Please obtain imagery data from the source of your choice and either 1) retrain the models or 2) use the pretrained models.
 
