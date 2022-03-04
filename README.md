@@ -1,5 +1,7 @@
 # Wildfire Mitigation: Computer Vision Identification of Hazard Fuels Using Landsat
-Welcome to our submission to the AWS Disaster Response Hackathon.
+Welcome to our submission to the AWS Disaster Response Hackathon.  [![Open In SageMaker Studio Lab](https://studiolab.sagemaker.aws/studiolab.svg)](https://studiolab.sagemaker.aws/import/github/github.com/MarjorieRWillner/DisasterHack/edit/main/tree_model/Data_extraction.ipynb)
+
+
 
 ## Description
 Without intervention, diseased and dead trees become hazardous fuels that increase the likelihood and severity of wildfire and associated disasters. However, traditional tree assessment methods are time consuming and laborious. To aid Federal, state, and local land managers in quickly identifying and responding to tree disease and mortality, we developed a computer vision model to identify diseased and dead trees from open-source available 16-day 30m Landsat data. 
